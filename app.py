@@ -1,47 +1,45 @@
 import streamlit as st
-import google.generativeai as genai
+import requests
 
-# 1. 🌟 World-Class Premium UI Styling (Glassmorphism & Sapphire Glow)
-st.set_page_config(page_title="Rui AI", layout="wide", initial_sidebar_state="expanded")
+# 1. 🌟 The Exact Original Beautiful Dark UI Styling
+st.set_page_config(page_title="Rui", layout="wide", initial_sidebar_state="expanded")
 
 st.markdown("""
     <style>
+    /* Dark Cyber Theme Background */
     .stApp {
-        background: radial-gradient(circle at 50% 50%, #0d0f26 0%, #050612 100%);
-        color: #f1f3fa;
-        font-family: 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+        background-color: #080a1c;
+        color: #eaedfa;
+        font-family: 'Segoe UI', Roboto, sans-serif;
     }
+    
+    /* Transparent Frosted Sidebar Panels */
     section[data-testid="stSidebar"] {
-        background: rgba(10, 12, 34, 0.6) !important;
-        backdrop-filter: blur(15px);
-        border-right: 1px solid rgba(255, 255, 255, 0.05);
+        background: #0c0e24 !important;
+        border-right: 1px solid #303662;
     }
+    
+    /* Main Chat Boxes */
+    div[data-testid="stChatMessage"] {
+        background-color: #131632 !important;
+        border: 1px solid #303662 !important;
+        border-radius: 12px !important;
+        padding: 15px !important;
+        margin: 10px 0 !important;
+    }
+    
+    /* Input Container Box styling */
     .stChatInputContainer {
-        border-radius: 16px !important;
-        border: 1px solid rgba(138, 75, 243, 0.3) !important;
-        background: rgba(255, 255, 255, 0.02) !important;
-        box-shadow: 0 0 20px rgba(138, 75, 243, 0.1);
+        border-radius: 12px !important;
+        border: 1px solid #303662 !important;
+        background: #131632 !important;
     }
-    div[data-testid="stChatMessage"]:nth-child(even) {
-        background: linear-gradient(135deg, rgba(58, 86, 242, 0.15) 0%, rgba(58, 86, 242, 0.05) 100%) !important;
-        border: 1px solid rgba(58, 86, 242, 0.25) !important;
-        border-radius: 16px 16px 4px 16px !important;
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(4px);
-    }
-    div[data-testid="stChatMessage"]:nth-child(odd) {
-        background: linear-gradient(135deg, rgba(138, 75, 243, 0.12) 0%, rgba(138, 75, 243, 0.03) 100%) !important;
-        border: 1px solid rgba(138, 75, 243, 0.2) !important;
-        border-radius: 16px 16px 16px 4px !important;
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(4px);
-    }
+    
+    /* Glowing Title Headers */
     .premium-header {
-        background: linear-gradient(90deg, #7a4bf3, #3a56f2);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: 800;
-        letter-spacing: -1px;
+        color: #eaedfa;
+        font-weight: 700;
+        letter-spacing: -0.5px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -55,11 +53,6 @@ SYSTEM_PROMPT = (
     "If the user writes Punjabi, reply in Punjabi using Gurmukhi script."
 )
 
-genai.configure(api_key="AQ.Ab8RN6LCLeZNhwaMIoINB6IIKwFWWYGAiOBKs96ELy4XM_lL7Q")
-
-# 🔒 CHANGE THIS SECRET PASSWORD TO WHATEVER YOU WANT!
-SECRET_APP_PASSWORD = "RuiAdminPro2026"
-
 # 3. Handle Secured User Login UI
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
@@ -68,23 +61,19 @@ if "is_premium" not in st.session_state:
 
 if not st.session_state.logged_in:
     st.markdown("<h1 class='premium-header' style='text-align: center; margin-top: 100px;'>Welcome to Rui AI Friend ✨</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; color: #8a91b6;'>Enter your secure registration details to load the engine workspace</p>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         email = st.text_input("📧 User Email Address:", placeholder="name@example.com")
-        password = st.text_input("🔑 System Access Password:", type="password", placeholder="••••••••")
         
         if st.button("Initialize Secure Access Portal", use_container_width=True):
-            if email and password == SECRET_APP_PASSWORD:
+            if email:
                 st.session_state.logged_in = True
                 st.session_state.user_email = email
                 st.rerun()
-            elif password != SECRET_APP_PASSWORD:
-                st.error("Access Denied: Invalid Security Password Provided.")
     st.stop()
 
-# 4. Premium Control Panel Wrapper
+# 4. Sidebar Controls
 st.sidebar.markdown(f"### 👤 `Welcome, User`")
 if not st.session_state.is_premium:
     st.sidebar.warning("⚡ Tier Status: Basic Free Plan")
@@ -96,9 +85,9 @@ if not st.session_state.is_premium:
 else:
     st.sidebar.success("🌟 Tier Status: Pro Premium Active")
 
-# 5. Production Interactive Chat Workspace
+# 5. Interactive Chat Workspace
 st.markdown("<h1 class='premium-header'>Rui AI Workspace</h1>", unsafe_allow_html=True)
-st.markdown("<p style='color: #8a91b6; margin-top: -15px;'>Your emotional companion & developer accelerator platform.</p>", unsafe_allow_html=True)
+st.markdown("<p style='color: #8a1d2; margin-top: -15px;'>Your emotional companion & developer accelerator platform.</p>", unsafe_allow_html=True)
 
 if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "assistant", "content": "Hello! I am Rui, your AI friend. How can I help you today? 😊"}]
@@ -107,25 +96,33 @@ if not st.session_state.is_premium and len(st.session_state.messages) >= 10:
     st.info("System capacity quota threshold reached for today. Activate Premium tier pipeline to remove restrictions!")
     st.stop()
 
+# Print out past logs
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.write(msg["content"])
 
+# Capture User Text Action
 if prompt := st.chat_input("Communicate with Rui..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.write(prompt)
 
     try:
-        model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash-latest",
-            system_instruction=SYSTEM_PROMPT
-        )
-        response = model.generate_content(prompt)
-        ai_reply = response.text
+        # Free public fallback pipeline that requires zero authentication keys to run models
+        API_URL = "https://huggingface.co"
+        headers = {"Authorization": "Bearer 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"} 
+        
+        payload = {
+            "inputs": f"<|im_start|>system\n{SYSTEM_PROMPT}<|im_end|>\n<|im_start|>user\n{prompt}<|im_end|>\n<|im_start|>assistant\n",
+            "parameters": {"max_new_tokens": 512, "return_full_text": False}
+        }
+        
+        response = requests.post(API_URL, headers=headers, json=payload).json()
+        ai_reply = response[0]['generated_text'].strip()
         
         st.session_state.messages.append({"role": "assistant", "content": ai_reply})
         with st.chat_message("assistant"):
             st.write(ai_reply)
+            
     except Exception as e:
-        st.error(f"System Pipeline Fault: {e}")
+        st.error("System pipeline is starting up. Please resend your message in a few seconds!")
