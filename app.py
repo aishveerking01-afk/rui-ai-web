@@ -10,7 +10,7 @@ st.markdown("""
     .stApp { background-color: #080a1c; color: #eaedfa; }
     .stChatMessage { background-color: #131632; border-radius: 10px; padding: 10px; margin: 10px 0; }
     </style>
-""", unsafe_allow_html=True) 
+""", unsafe_allow_html=True)
 
 # 2. Configure the AI System Prompt (from your original script)
 SYSTEM_PROMPT = (
@@ -21,11 +21,8 @@ SYSTEM_PROMPT = (
     "If the user writes Punjabi, reply in Punjabi using Gurmukhi script."
 )
 
-# Securely grab your API Key from the server configuration
-genai.configure(api_key="AQ.Ab8RN6LCLeZNhwaMIoINB6IIKwFWWYGAiOBKs96ELy4XM_lL7Q")
-
-    st.error("Missing Gemini API Key configuration.")
-    st.stop()
+# Put your real Google Gemini API key right inside the empty quotes below:
+genai.configure("AQ.Ab8RN6LCLeZNhwaMIoINB6IIKwFWWYGAiOBKs96ELy4XM_lL7Q")
 
 # 3. Handle User Accounts & Paywall UI
 if "logged_in" not in st.session_state:
@@ -47,7 +44,6 @@ if not st.session_state.logged_in:
 st.sidebar.title(f"👤 {st.session_state.user_email}")
 if not st.session_state.is_premium:
     st.sidebar.warning("You are on the Free Plan (10 chats/day max)")
-    # Replace this link with your actual Stripe or Razorpay payment link
     st.sidebar.markdown("[💎 Upgrade to Premium for Unlimited Chats](https://stripe.com)")
     
     # Simple manual bypass button for you to test during development
