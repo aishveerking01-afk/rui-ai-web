@@ -21,7 +21,7 @@ SYSTEM_PROMPT = (
     "If the user writes Punjabi, reply in Punjabi using Gurmukhi script."
 )
 
-# Your API Key is configured completely right here:
+# Configured for standard v1 production endpoint
 genai.configure(api_key="AQ.Ab8RN6LCLeZNhwaMIoINB6IIKwFWWYGAiOBKs96ELy4XM_lL7Q")
 
 # 3. Handle User Accounts & Paywall UI
@@ -75,10 +75,10 @@ if prompt := st.chat_input("Message Rui..."):
     with st.chat_message("user"):
         st.write(prompt)
 
-    # Fetch AI generation from Gemini
+    # Updated to stable production version layout
     try:
         model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",
+            model_name="gemini-1.5-flash-latest",
             system_instruction=SYSTEM_PROMPT
         )
         response = model.generate_content(prompt)
