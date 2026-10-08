@@ -22,9 +22,8 @@ SYSTEM_PROMPT = (
 )
 
 # Securely grab your API Key from the server configuration
-if "GEMINI_API_KEY" in st.secrets:
-    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-else:
+genai.configure(api_key="AQ.Ab8RN6LCLeZNhwaMIoINB6IIKwFWWYGAiOBKs96ELy4XM_lL7Q")
+
     st.error("Missing Gemini API Key configuration.")
     st.stop()
 
