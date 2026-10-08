@@ -21,8 +21,8 @@ SYSTEM_PROMPT = (
     "If the user writes Punjabi, reply in Punjabi using Gurmukhi script."
 )
 
-# Put your real Google Gemini API key right inside the empty quotes below:
-genai.configure("AQ.Ab8RN6LCLeZNhwaMIoINB6IIKwFWWYGAiOBKs96ELy4XM_lL7Q")
+# Your API Key is configured completely right here:
+genai.configure(api_key="AQ.Ab8RN6LCLeZNhwaMIoINB6IIKwFWWYGAiOBKs96ELy4XM_lL7Q")
 
 # 3. Handle User Accounts & Paywall UI
 if "logged_in" not in st.session_state:
