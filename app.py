@@ -10,7 +10,7 @@ st.markdown("""
     .stApp { background-color: #080a1c; color: #eaedfa; }
     .stChatMessage { background-color: #131632; border-radius: 10px; padding: 10px; margin: 10px 0; }
     </style>
-""", unsafe_with_html=True)
+""", unsafe_allow_html=True) 
 
 # 2. Configure the AI System Prompt (from your original script)
 SYSTEM_PROMPT = (
